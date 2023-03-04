@@ -1,0 +1,9 @@
+quarkus:
+  datasource:
+    db-kind: postgresql
+    username: postgres
+    password: postgres
+    jdbc.url: jdbc:postgresql://localhost:5432/restaurant
+  hibernate-orm:
+    database:
+      generation: drop-and-create
