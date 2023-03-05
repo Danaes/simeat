@@ -7,4 +7,6 @@ import javax.validation.Valid
 interface RestaurantApplicationService {
 
     fun createRestaurant(@Valid restaurantCreateCmd: RestaurantCreateCmd): RestaurantRes
+    fun getRestaurants(): List<RestaurantRes>
+    fun getRestaurantById(id: String): RestaurantRes?
 }

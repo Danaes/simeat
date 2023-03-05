@@ -10,7 +10,7 @@ data class Restaurant(
     var id: RestaurantId? = null,
     val name: String,
     val address: String,
-    val menu: Menu? = null
+    val menus: List<Menu>? = null
 ) : AggregateRoot<RestaurantId>() {
 
     fun validate() {

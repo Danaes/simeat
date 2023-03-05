@@ -9,6 +9,7 @@ import com.simeat.api.resturant.service.domain.resturant.RestaurantDomainService
 import com.simeat.api.resturant.service.domain.resturant.entity.Restaurant
 import com.simeat.api.resturant.service.domain.resturant.exception.RestaurantDomainException
 import org.jboss.logging.Logger
+import java.util.*
 import javax.enterprise.context.ApplicationScoped
 import javax.transaction.Transactional
 
@@ -22,11 +23,21 @@ class RestaurantApplicationServiceImpl(
 
     @Transactional
     override fun createRestaurant(restaurantCreateCmd: RestaurantCreateCmd): RestaurantRes {
-        val restaurant = restaurantMapper.restaurantCreateCmdToRestaurant(restaurantCreateCmd)
+        val restaurant = restaurantMapper.toDomain(restaurantCreateCmd)
         restaurantDomainService.validateAndInitiateRestaurant(restaurant)
         log.info("Restaurant is created with id: ${restaurant.id!!.getValue()}")
         saveRestaurant(restaurant)
-        return restaurantMapper.restaurantToRestaurantRes(restaurant)
+        return restaurantMapper.toDto(restaurant)
+    }
+
+    override fun getRestaurants(): List<RestaurantRes> {
+        val restaurants = restaurantRepository.getAll()
+        return restaurantMapper.toDto(restaurants)
+    }
+
+    override fun getRestaurantById(id: String): RestaurantRes? {
+        val restaurant = restaurantRepository.getById(UUID.fromString(id))
+        return if (restaurant != null) restaurantMapper.toDto(restaurant) else null
     }
 
     private fun saveRestaurant(restaurant: Restaurant){

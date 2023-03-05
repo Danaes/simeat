@@ -10,5 +10,5 @@ data class RestaurantRes(
     val name: String,
     @NotNull
     val address: String,
-    val menuId: UUID?
+    val menuIds: List<UUID>?
 )

@@ -32,6 +32,11 @@
     <dependencies>
       <dependency>
         <groupId>com.simeat</groupId>
+        <artifactId>restaurant-data-access</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.simeat</groupId>
         <artifactId>restaurant-application</artifactId>
         <version>${project.version}</version>
       </dependency>

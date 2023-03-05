@@ -8,19 +8,21 @@ import javax.enterprise.context.ApplicationScoped
 @ApplicationScoped
 class RestaurantMapper {
 
-    fun restaurantCreateCmdToRestaurant(restaurantCreateCmd: RestaurantCreateCmd): Restaurant{
+    fun toDomain(restaurantCreateCmd: RestaurantCreateCmd): Restaurant{
         return Restaurant(
             name = restaurantCreateCmd.name,
             address = restaurantCreateCmd.address
         )
     }
 
-    fun restaurantToRestaurantRes(restaurant: Restaurant): RestaurantRes {
+    fun toDto(restaurants: List<Restaurant>): List<RestaurantRes> = restaurants.map { toDto(it) }
+
+    fun toDto(restaurant: Restaurant): RestaurantRes {
         return RestaurantRes(
             restaurantId = restaurant.id!!.getValue(),
             name = restaurant.name,
             address = restaurant.address,
-            menuId = restaurant.menu?.id!!.getValue()
+            menuIds = restaurant.menus?.map { it.id!!.getValue() }
         )
     }
 }
